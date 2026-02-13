@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0f0c29;
+  --color-card: #1e1b4b;
+  --color-accent: #7c3aed;
+  --color-text: #e2e8f0;
+
+  --animate-flip: flip 0.6s ease-in-out;
+
+  @keyframes flip {
+    0% {
+      transform: rotateY(0deg);
+    }
+
+    100% {
+      transform: rotateY(180deg);
+    }
+  }
+}
+
+@layer utilities {
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-text min-h-screen overflow-hidden;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  #root {
+    @apply h-full w-full;
+  }
+}
+
+/* Custom glow effect */
+.active-tab-glow {
+  box-shadow: inset 0 -4px 12px -2px rgba(99, 102, 241, 0.3);
+}
+
+/* Custom scrollbar for deck view if needed */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
