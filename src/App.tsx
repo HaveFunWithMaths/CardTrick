@@ -127,7 +127,7 @@ const CardView = React.memo(({ card, onClick, isSelected, isFaceDown, size = 'md
         layoutId={finalLayoutId}
         className={cn(
           "relative rounded-xl border-2 border-indigo-900/50 bg-slate-900 shadow-xl overflow-hidden cursor-pointer",
-          size === 'sm' ? "w-12 h-16" : size === 'md' ? "w-16 h-24" : "w-24 h-36"
+          size === 'sm' ? "w-12 h-16" : size === 'md' ? "w-16 h-24 md:w-28 md:h-40" : "w-32 h-48 md:w-40 md:h-60"
         )}
         onClick={onClick}
       >
@@ -156,7 +156,7 @@ const CardView = React.memo(({ card, onClick, isSelected, isFaceDown, size = 'md
       className={cn(
         "relative rounded-xl bg-slate-100 shadow-md flex flex-col items-center justify-center select-none cursor-pointer border transition-colors duration-200",
         isSelected ? "border-indigo-500 ring-2 ring-indigo-500/50" : "border-slate-300",
-        size === 'sm' ? "w-12 h-16 text-xs" : size === 'md' ? "w-16 h-24 text-base" : "w-32 h-48 text-2xl"
+        size === 'sm' ? "w-12 h-16 text-xs" : size === 'md' ? "w-16 h-24 md:w-28 md:h-40 text-base md:text-xl" : "w-32 h-48 md:w-40 md:h-60 text-2xl md:text-4xl"
       )}
     >
       <div className={cn("absolute top-1 left-1 font-bold", colorClass, size === 'lg' && "top-3 left-3")}>{card.displayValue}</div>
@@ -235,7 +235,7 @@ export default function App() {
       {/* HEADER */}
       <div className="p-4 border-b border-white/10 flex items-center justify-between bg-black/20 backdrop-blur-md sticky top-0 z-50">
         <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
-          Fitch Cheney Decoder
+          5 Card Magic
         </h1>
         {phase !== 'selection' && (
           <button onClick={reset} className="p-2 hover:bg-white/10 rounded-full transition-colors">
@@ -306,7 +306,7 @@ export default function App() {
                         isActive ? "bg-white/5 active-tab-glow" : "hover:bg-white/5 opacity-50 hover:opacity-100"
                       )}
                     >
-                      <Icon className={cn("w-6 h-6 transition-transform", isActive ? "scale-125 text-white" : SUIT_COLORS[suit])} />
+                      <Icon className={cn("w-6 h-6 transition-transform", isActive ? "scale-125 text-white" : ((suit === 'spades' || suit === 'clubs') ? 'text-zinc-400' : SUIT_COLORS[suit]))} />
                       {isActive && (
                         <motion.div
                           layoutId="activeTab"
@@ -361,7 +361,7 @@ export default function App() {
 
                 {/* 1. The Sequence (Indicator + 3 Code Cards) */}
                 <div className="flex flex-col items-center w-full">
-                  <h2 className="text-indigo-300 text-sm font-bold tracking-widest uppercase mb-6 opacity-80">The Sequence</h2>
+                  <h2 className="text-indigo-300 text-sm font-bold tracking-widest uppercase mb-6 opacity-80 text-center">The Sequence</h2>
                   <div className="flex items-center justify-center gap-3 sm:gap-6">
                     {/* Indicator */}
                     <motion.div
@@ -390,9 +390,9 @@ export default function App() {
 
                 {/* 3. The Reveal (Hidden Card) */}
                 <div className="flex flex-col items-center relative pt-8">
-                  <h2 className="text-indigo-400 text-sm font-bold tracking-widest uppercase mb-4 opacity-80">The Prediction</h2>
+                  <h2 className="text-indigo-400 text-sm font-bold tracking-widest uppercase mb-4 opacity-80 text-center">The Prediction</h2>
 
-                  <div className="relative w-32 h-48 cursor-pointer group perspective-1000" onClick={() => setIsHiddenRevealed(true)}>
+                  <div className="relative w-32 h-48 md:w-40 md:h-60 cursor-pointer group perspective-1000" onClick={() => setIsHiddenRevealed(true)}>
                     <motion.div
                       animate={{ rotateY: isHiddenRevealed ? 180 : 0 }}
                       transition={{ duration: 0.8, type: "spring" }}
